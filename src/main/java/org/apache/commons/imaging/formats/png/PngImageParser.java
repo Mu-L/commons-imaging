@@ -68,6 +68,9 @@ import org.apache.commons.imaging.formats.tiff.TiffImageParser;
 import org.apache.commons.imaging.formats.tiff.TiffImagingParameters;
 import org.apache.commons.imaging.icc.IccProfileParser;
 
+/**
+ * Parses PNG images.
+ */
 public class PngImageParser extends AbstractImageParser<PngImagingParameters> implements XmpEmbeddable<PngImagingParameters> {
 
     private static final Logger LOGGER = Logger.getLogger(PngImageParser.class.getName());
@@ -343,6 +346,50 @@ public class PngImageParser extends AbstractImageParser<PngImagingParameters> im
         return new PngImagingParameters();
     }
 
+    /**
+     * Gets TIFF image metadata for a byte source and TIFF parameters.
+     *
+     * @param byteSource The source of the image.
+     * @param params     Optional instructions for special-handling or interpretation of the input data (null objects are permitted and must be supported by
+     *                   implementations).
+     * @return TIFF image metadata.
+     * @throws ImagingException In the event that the specified content does not conform to the format of the specific parser implementation.
+     * @throws IOException      In the event of unsuccessful data read operation.
+     * @since 1.0-alpha6
+     */
+    public TiffImageMetadata getExifMetadata(final ByteSource byteSource, TiffImagingParameters params)
+            throws ImagingException, IOException {
+        final byte[] bytes = getExifRawData(byteSource);
+        if (null == bytes) {
+            return null;
+        }
+
+        if (params == null) {
+            params = new TiffImagingParameters();
+        }
+
+        return (TiffImageMetadata) new TiffImageParser().getMetadata(bytes, params);
+    }
+
+    /**
+     * Gets TIFF image metadata for a byte source.
+     *
+     * @param byteSource The source of the image.
+     * @return TIFF image metadata.
+     * @throws ImagingException In the event that the specified content does not conform to the format of the specific parser implementation.
+     * @throws IOException      In the event of unsuccessful data read operation.
+     * @since 1.0-alpha6
+     */
+    public byte[] getExifRawData(final ByteSource byteSource) throws ImagingException, IOException {
+        final List<PngChunk> chunks = readChunks(byteSource, new ChunkType[] { ChunkType.eXIf }, true);
+
+        if (chunks.isEmpty()) {
+            return null;
+        }
+
+        return chunks.get(0).getBytes();
+    }
+
     @Override
     public byte[] getIccProfileBytes(final ByteSource byteSource, final PngImagingParameters params) throws ImagingException, IOException {
         final List<PngChunk> chunks = readChunks(byteSource, new ChunkType[] { ChunkType.iCCP }, true);
@@ -544,36 +591,6 @@ public class PngImageParser extends AbstractImageParser<PngImagingParameters> im
         return new PngImageMetadata(textual, exif);
     }
 
-    /**
-     * @since 1.0-alpha6
-     */
-    public TiffImageMetadata getExifMetadata(final ByteSource byteSource, TiffImagingParameters params)
-            throws ImagingException, IOException {
-        final byte[] bytes = getExifRawData(byteSource);
-        if (null == bytes) {
-            return null;
-        }
-
-        if (params == null) {
-            params = new TiffImagingParameters();
-        }
-
-        return (TiffImageMetadata) new TiffImageParser().getMetadata(bytes, params);
-    }
-
-    /**
-     * @since 1.0-alpha6
-     */
-    public byte[] getExifRawData(final ByteSource byteSource) throws ImagingException, IOException {
-        final List<PngChunk> chunks = readChunks(byteSource, new ChunkType[] { ChunkType.eXIf }, true);
-
-        if (chunks.isEmpty()) {
-            return null;
-        }
-
-        return chunks.get(0).getBytes();
-    }
-
     @Override
     public String getName() {
         return "Png-Custom";
@@ -705,8 +722,15 @@ public class PngImageParser extends AbstractImageParser<PngImagingParameters> im
 
     }
 
-    public void readSignature(final InputStream is) throws ImagingException, IOException {
-        BinaryFunctions.readAndVerifyBytes(is, PngConstants.PNG_SIGNATURE, "Not a Valid PNG Segment: Incorrect Signature");
+    /**
+     * Reads reads the signature.
+     *
+     * @param in an input stream.
+     * @throws ImagingException In the event that the specified content does not conform to the format of the specific parser implementation.
+     * @throws IOException      In the event of unsuccessful data read operation.
+     */
+    public void readSignature(final InputStream in) throws ImagingException, IOException {
+        BinaryFunctions.readAndVerifyBytes(in, PngConstants.PNG_SIGNATURE, "Not a Valid PNG Segment: Incorrect Signature");
 
     }
 

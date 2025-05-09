@@ -37,9 +37,9 @@ import org.apache.commons.imaging.ImagingException;
  *
  * @see <a href="https://developers.google.com/speed/webp/docs/riff_container#simple_file_format_lossy">Simple File Format (Lossy)</a>
  * @see <a href="https://datatracker.ietf.org/doc/html/rfc6386">VP8 Data Format and Decoding Guide</a>
- * @since 1.0-alpha4
+ * @since 1.0.0-alpha4
  */
-public final class WebPChunkVp8 extends WebPChunk {
+public final class WebPChunkVp8 extends AbstractWebPChunk {
     private final int versionNumber;
     private final int width;
     private final int height;
