@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,8 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package org.apache.commons.imaging.formats.tiff;
+package org.apache.commons.imaging.formats.rgbe;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,17 +26,16 @@ import org.apache.commons.imaging.ImageFormats;
 import org.apache.commons.imaging.Imaging;
 import org.apache.commons.imaging.ImagingException;
 
-public abstract class TiffBaseTest extends AbstractImagingTest {
+public abstract class AbstractRgbeTest extends AbstractImagingTest {
 
-    private static final ImageFilter IMAGE_FILTER = TiffBaseTest::isTiff;
+    private static final ImageFilter IMAGE_FILTER = AbstractRgbeTest::isRgbe;
 
-    private static boolean isTiff(final File file) throws IOException {
+    private static boolean isRgbe(final File file) throws IOException {
         final ImageFormat format = Imaging.guessFormat(file);
-        return format == ImageFormats.TIFF;
+        return format == ImageFormats.RGBE;
     }
 
-    protected List<File> getTiffImages() throws IOException, ImagingException {
+    protected List<File> getRgbeImages() throws IOException, ImagingException {
         return getTestImages(IMAGE_FILTER);
     }
-
 }

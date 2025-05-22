@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -34,7 +34,7 @@ import org.apache.commons.imaging.ImageFormats;
 import org.apache.commons.imaging.ImageInfo;
 import org.apache.commons.imaging.ImagingException;
 import org.apache.commons.imaging.bytesource.ByteSource;
-import org.apache.commons.imaging.common.BinaryOutputStream;
+import org.apache.commons.imaging.common.AbstractBinaryOutputStream;
 import org.apache.commons.imaging.common.ImageMetadata;
 
 public class IcnsImageParser extends AbstractImageParser<IcnsImagingParameters> {
@@ -244,7 +244,7 @@ public class IcnsImageParser extends AbstractImageParser<IcnsImagingParameters> 
             throw new ImagingException("Invalid/unsupported source width " + src.getWidth() + " and height " + src.getHeight());
         }
 
-        try (BinaryOutputStream bos = BinaryOutputStream.bigEndian(os)) {
+        try (AbstractBinaryOutputStream bos = AbstractBinaryOutputStream.bigEndian(os)) {
             bos.write4Bytes(ICNS_MAGIC);
             bos.write4Bytes(4 + 4 + 4 + 4 + 4 * imageType.getWidth() * imageType.getHeight() + 4 + 4 + imageType.getWidth() * imageType.getHeight());
 

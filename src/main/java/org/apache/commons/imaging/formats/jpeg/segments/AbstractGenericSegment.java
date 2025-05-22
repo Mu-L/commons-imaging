@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -23,16 +23,16 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.nio.charset.Charset;
 
-public abstract class GenericSegment extends AbstractSegment {
+public abstract class AbstractGenericSegment extends AbstractSegment {
     private final byte[] segmentData;
 
-    public GenericSegment(final int marker, final byte[] bytes) {
+    public AbstractGenericSegment(final int marker, final byte[] bytes) {
         super(marker, bytes.length);
 
         this.segmentData = bytes.clone();
     }
 
-    public GenericSegment(final int marker, final int markerLength, final InputStream is) throws IOException {
+    public AbstractGenericSegment(final int marker, final int markerLength, final InputStream is) throws IOException {
         super(marker, markerLength);
 
         segmentData = readBytes("Segment Data", is, markerLength, "Invalid Segment: insufficient data");
@@ -62,7 +62,7 @@ public abstract class GenericSegment extends AbstractSegment {
      * Returns a specific byte of the segment's contents, excluding the marker and length bytes at the beginning.
      *
      * @param offset segment offset
-     * @see GenericSegment#getSegmentData()
+     * @see AbstractGenericSegment#getSegmentData()
      * @return the bye in the segment's contents
      */
     protected byte getSegmentData(final int offset) {

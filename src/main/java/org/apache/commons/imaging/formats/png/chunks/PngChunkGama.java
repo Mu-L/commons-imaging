@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -21,7 +21,7 @@ import static org.apache.commons.imaging.common.BinaryFunctions.read4Bytes;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
-public class PngChunkGama extends PngChunk {
+public final class PngChunkGama extends PngChunk {
 
     private final int gamma;
 

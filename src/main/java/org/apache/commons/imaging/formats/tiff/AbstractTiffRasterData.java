@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -32,7 +32,7 @@ package org.apache.commons.imaging.formats.tiff;
  * index = y * width + x + iSample * width * height;
  * </pre>
  */
-public abstract class TiffRasterData {
+public abstract class AbstractTiffRasterData {
 
     protected final int width;
     protected final int height;
@@ -47,7 +47,7 @@ public abstract class TiffRasterData {
      * @param height          a value of 1 or greater
      * @param samplesPerPixel a value of 1 or greater
      */
-    public TiffRasterData(final int width, final int height, final int samplesPerPixel) {
+    public AbstractTiffRasterData(final int width, final int height, final int samplesPerPixel) {
         if (width <= 0 || height <= 0) {
             throw new IllegalArgumentException("Raster dimensions less than or equal to zero are not supported");
         }

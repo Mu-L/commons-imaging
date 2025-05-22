@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -119,7 +119,7 @@ public class Allocator {
     /**
      * Checks a request for meeting allocation limits.
      * <p>
-     * The default limit is {@value #DEFAULT}, override with the system property "org.apache.commons.imaging.common.mylzw.AllocationChecker".
+     * The default limit is {@code #DEFAULT}, override with the system property "org.apache.commons.imaging.common.mylzw.AllocationChecker".
      * </p>
      *
      * @param request an allocation request.
@@ -136,7 +136,7 @@ public class Allocator {
     /**
      * Checks a request for meeting allocation limits.
      * <p>
-     * The default limit is {@value #DEFAULT}, override with the system property "org.apache.commons.imaging.common.mylzw.AllocationChecker".
+     * The default limit is {@code #DEFAULT}, override with the system property "org.apache.commons.imaging.common.mylzw.AllocationChecker".
      * </p>
      *
      * @param request     an allocation request count.
@@ -160,7 +160,7 @@ public class Allocator {
     /**
      * Checks a request for meeting allocation limits.
      * <p>
-     * The default limit is {@value #DEFAULT}, override with the system property "org.apache.commons.imaging.common.mylzw.AllocationChecker".
+     * The default limit is {@code #DEFAULT}, override with the system property "org.apache.commons.imaging.common.mylzw.AllocationChecker".
      * </p>
      *
      * @param request     an allocation request count is cast down to an int.

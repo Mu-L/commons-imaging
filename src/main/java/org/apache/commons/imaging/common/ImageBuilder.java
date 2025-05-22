@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -53,7 +53,7 @@ import java.util.Properties;
 /**
  * A utility class primary intended for storing data obtained by reading image files.
  */
-public class ImageBuilder {
+public final class ImageBuilder {
     private final int[] data;
     private final int width;
     private final int height;
@@ -70,13 +70,7 @@ public class ImageBuilder {
      * @throws RasterFormatException if {@code width} or {@code height} are equal or less than zero
      */
     public ImageBuilder(final int width, final int height, final boolean hasAlpha) {
-        checkDimensions(width, height);
-
-        data = Allocator.intArray(width * height);
-        this.width = width;
-        this.height = height;
-        this.hasAlpha = hasAlpha;
-        this.isAlphaPremultiplied = false;
+        this(width, height, hasAlpha, false);
     }
 
     /**

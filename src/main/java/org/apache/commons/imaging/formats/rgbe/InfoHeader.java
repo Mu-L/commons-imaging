@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -30,14 +30,6 @@ final class InfoHeader {
         this.is = is;
     }
 
-    private char readChar() throws IOException {
-        final int result = is.read();
-        if (result < 0) {
-            throw new ImagingException("HDR: Unexpected EOF");
-        }
-        return (char) result;
-    }
-
     String line() throws IOException {
         final StringBuilder buffer = new StringBuilder();
         char c;
@@ -45,5 +37,13 @@ final class InfoHeader {
             buffer.append(c);
         }
         return buffer.toString();
+    }
+
+    private char readChar() throws IOException {
+        final int result = is.read();
+        if (result < 0) {
+            throw new ImagingException("HDR: Unexpected EOF");
+        }
+        return (char) result;
     }
 }

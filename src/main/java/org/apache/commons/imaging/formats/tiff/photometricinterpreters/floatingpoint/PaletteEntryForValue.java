@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -22,7 +22,7 @@ import java.awt.Color;
  * Provides a palette entry for a color assignment to a single value. This class will assign a color to a value only if it is an exact match for the input. This
  * class will also support Float.NaN
  */
-public class PaletteEntryForValue implements PaletteEntry {
+public final class PaletteEntryForValue implements PaletteEntry {
 
     private final float value;
     private final int iColor;

@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -22,14 +22,14 @@ import java.io.OutputStream;
 import java.nio.ByteOrder;
 import java.util.Objects;
 
-public abstract class BinaryOutputStream extends FilterOutputStream {
+public abstract class AbstractBinaryOutputStream extends FilterOutputStream {
 
     public static BigEndianBinaryOutputStream bigEndian(final OutputStream outputStream) {
         return new BigEndianBinaryOutputStream(outputStream);
     }
 
     @SuppressWarnings("resource")
-    public static BinaryOutputStream create(final OutputStream outputStream, final ByteOrder byteOrder) {
+    public static AbstractBinaryOutputStream create(final OutputStream outputStream, final ByteOrder byteOrder) {
         Objects.requireNonNull(outputStream, "outputStream");
         Objects.requireNonNull(byteOrder, "byteOrder");
         if (byteOrder == ByteOrder.LITTLE_ENDIAN) {
@@ -45,7 +45,7 @@ public abstract class BinaryOutputStream extends FilterOutputStream {
         return new LittleEndianBinaryOutputStream(outputStream);
     }
 
-    public BinaryOutputStream(final OutputStream outputStream) {
+    public AbstractBinaryOutputStream(final OutputStream outputStream) {
         super(outputStream);
     }
 

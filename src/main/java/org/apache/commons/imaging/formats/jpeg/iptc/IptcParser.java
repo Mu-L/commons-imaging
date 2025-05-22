@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -28,17 +28,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.apache.commons.imaging.ImagingConstants;
 import org.apache.commons.imaging.ImagingException;
 import org.apache.commons.imaging.ImagingParameters;
+import org.apache.commons.imaging.common.AbstractBinaryOutputStream;
 import org.apache.commons.imaging.common.Allocator;
 import org.apache.commons.imaging.common.BinaryFileParser;
 import org.apache.commons.imaging.common.BinaryFunctions;
-import org.apache.commons.imaging.common.BinaryOutputStream;
 import org.apache.commons.imaging.common.ByteConversions;
 import org.apache.commons.imaging.formats.jpeg.JpegConstants;
 import org.apache.commons.imaging.formats.jpeg.JpegImagingParameters;
@@ -89,7 +88,7 @@ public class IptcParser extends BinaryFileParser {
             }
         }
 
-        if (Objects.deepEquals(codedCharsetNormalized, CHARACTER_ESCAPE_SEQUENCE)) {
+        if (Arrays.equals(codedCharsetNormalized, CHARACTER_ESCAPE_SEQUENCE)) {
             return StandardCharsets.UTF_8;
         }
         return DEFAULT_CHARSET;
@@ -396,7 +395,7 @@ public class IptcParser extends BinaryFileParser {
             }
         }
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        try (BinaryOutputStream bos = BinaryOutputStream.create(baos, getByteOrder())) {
+        try (AbstractBinaryOutputStream bos = AbstractBinaryOutputStream.create(baos, getByteOrder())) {
             if (!charset.equals(DEFAULT_CHARSET)) {
                 bos.write(IptcConstants.IPTC_RECORD_TAG_MARKER);
                 bos.write(IptcConstants.IPTC_ENVELOPE_RECORD_NUMBER);
@@ -451,7 +450,7 @@ public class IptcParser extends BinaryFileParser {
 
     public byte[] writePhotoshopApp13Segment(final PhotoshopApp13Data data) throws IOException, ImagingException {
         try (ByteArrayOutputStream os = new ByteArrayOutputStream();
-                BinaryOutputStream bos = BinaryOutputStream.bigEndian(os)) {
+                AbstractBinaryOutputStream bos = AbstractBinaryOutputStream.bigEndian(os)) {
 
             JpegConstants.PHOTOSHOP_IDENTIFICATION_STRING.writeTo(bos);
 

@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -34,7 +34,7 @@ import org.apache.commons.imaging.common.Allocator;
  * index = y * width + x + iSample * width * height;
  * </pre>
  */
-public class TiffRasterDataInt extends TiffRasterData {
+public final class TiffRasterDataInt extends AbstractTiffRasterData {
 
     private final int[] data;
 
@@ -71,7 +71,6 @@ public class TiffRasterDataInt extends TiffRasterData {
      */
     public TiffRasterDataInt(final int width, final int height, final int samplesPerPixel, final int[] data) {
         super(width, height, samplesPerPixel);
-
         if (data == null || data.length < nCells) {
             throw new IllegalArgumentException("Specified data does not contain sufficient elements");
         }
@@ -87,7 +86,6 @@ public class TiffRasterDataInt extends TiffRasterData {
      */
     public TiffRasterDataInt(final int width, final int height, final int[] data) {
         super(width, height, 1);
-
         if (data == null || data.length < nCells) {
             throw new IllegalArgumentException("Specified data does not contain sufficient elements");
         }
@@ -141,8 +139,7 @@ public class TiffRasterDataInt extends TiffRasterData {
      */
     @Override
     public int getIntValue(final int x, final int y) {
-        final int index = checkCoordinatesAndComputeIndex(x, y, 0);
-        return data[index];
+        return data[checkCoordinatesAndComputeIndex(x, y, 0)];
     }
 
     /**
@@ -155,8 +152,7 @@ public class TiffRasterDataInt extends TiffRasterData {
      */
     @Override
     public int getIntValue(final int x, final int y, final int i) {
-        final int index = checkCoordinatesAndComputeIndex(x, y, i);
-        return data[index];
+        return data[checkCoordinatesAndComputeIndex(x, y, i)];
     }
 
     /**
@@ -189,8 +185,7 @@ public class TiffRasterDataInt extends TiffRasterData {
      */
     @Override
     public float getValue(final int x, final int y) {
-        final int index = checkCoordinatesAndComputeIndex(x, y, 0);
-        return data[index];
+        return data[checkCoordinatesAndComputeIndex(x, y, 0)];
     }
 
     /**
@@ -203,8 +198,7 @@ public class TiffRasterDataInt extends TiffRasterData {
      */
     @Override
     public float getValue(final int x, final int y, final int i) {
-        final int index = checkCoordinatesAndComputeIndex(x, y, i);
-        return data[index];
+        return data[checkCoordinatesAndComputeIndex(x, y, i)];
     }
 
     /**
@@ -216,8 +210,7 @@ public class TiffRasterDataInt extends TiffRasterData {
      */
     @Override
     public void setIntValue(final int x, final int y, final int value) {
-        final int index = checkCoordinatesAndComputeIndex(x, y, 0);
-        data[index] = value;
+        data[checkCoordinatesAndComputeIndex(x, y, 0)] = value;
     }
 
     /**
@@ -230,8 +223,7 @@ public class TiffRasterDataInt extends TiffRasterData {
      */
     @Override
     public void setIntValue(final int x, final int y, final int i, final int value) {
-        final int index = checkCoordinatesAndComputeIndex(x, y, i);
-        data[index] = value;
+        data[checkCoordinatesAndComputeIndex(x, y, i)] = value;
     }
 
     /**
@@ -243,8 +235,7 @@ public class TiffRasterDataInt extends TiffRasterData {
      */
     @Override
     public void setValue(final int x, final int y, final float value) {
-        final int index = checkCoordinatesAndComputeIndex(x, y, 0);
-        data[index] = (int) value;
+        data[checkCoordinatesAndComputeIndex(x, y, 0)] = (int) value;
     }
 
     /**
@@ -257,7 +248,6 @@ public class TiffRasterDataInt extends TiffRasterData {
      */
     @Override
     public void setValue(final int x, final int y, final int i, final float value) {
-        final int index = checkCoordinatesAndComputeIndex(x, y, i);
-        data[index] = (int) value;
+        data[checkCoordinatesAndComputeIndex(x, y, i)] = (int) value;
     }
 }

@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -23,7 +23,7 @@ import java.nio.ByteOrder;
 import java.util.Arrays;
 
 import org.apache.commons.imaging.ImagingException;
-import org.apache.commons.imaging.common.BinaryOutputStream;
+import org.apache.commons.imaging.common.AbstractBinaryOutputStream;
 import org.apache.commons.imaging.formats.tiff.fieldtypes.AbstractFieldType;
 import org.apache.commons.imaging.formats.tiff.taginfos.TagInfo;
 
@@ -138,7 +138,7 @@ public class TiffOutputField {
         return result.toString();
     }
 
-    protected void writeField(final BinaryOutputStream bos) throws IOException, ImagingException {
+    protected void writeField(final AbstractBinaryOutputStream bos) throws IOException, ImagingException {
         bos.write2Bytes(tag);
         bos.write2Bytes(abstractFieldType.getType());
         bos.write4Bytes(count);

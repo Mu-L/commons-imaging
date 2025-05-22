@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,15 +26,15 @@ import org.apache.commons.imaging.common.Allocator;
 import org.apache.commons.imaging.common.BinaryFileParser;
 import org.apache.commons.imaging.formats.psd.PsdHeaderInfo;
 import org.apache.commons.imaging.formats.psd.PsdImageContents;
-import org.apache.commons.imaging.formats.psd.dataparsers.DataParser;
+import org.apache.commons.imaging.formats.psd.dataparsers.AbstractDataParser;
 import org.apache.commons.imaging.mylzw.BitsToByteInputStream;
 import org.apache.commons.imaging.mylzw.MyBitInputStream;
 
 public class UncompressedDataReader implements DataReader {
 
-    private final DataParser dataParser;
+    private final AbstractDataParser dataParser;
 
-    public UncompressedDataReader(final DataParser dataParser) {
+    public UncompressedDataReader(final AbstractDataParser dataParser) {
         this.dataParser = dataParser;
     }
 

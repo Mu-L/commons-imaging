@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -44,9 +44,9 @@ import org.apache.commons.imaging.ImagingException;
  * }</pre>
  *
  * @see <a href="https://developers.google.com/speed/webp/docs/riff_container#extended_file_format">Extended File Format</a>
- * @since 1.0-alpha4
+ * @since 1.0.0-alpha4
  */
-public final class WebPChunkVp8x extends WebPChunk {
+public final class WebPChunkVp8x extends AbstractWebPChunk {
     private final boolean hasIcc;
     private final boolean hasAlpha;
     private final boolean hasExif;

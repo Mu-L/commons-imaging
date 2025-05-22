@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -28,9 +28,9 @@ import org.apache.commons.imaging.ImageFormats;
 import org.apache.commons.imaging.Imaging;
 import org.apache.commons.imaging.ImagingException;
 
-public abstract class WebPBaseTest extends AbstractImagingTest {
+public abstract class AbstractWebPTest extends AbstractImagingTest {
 
-    private static final ImageFilter IMAGE_FILTER = WebPBaseTest::isWebP;
+    private static final ImageFilter IMAGE_FILTER = AbstractWebPTest::isWebP;
 
     protected static List<File> getWebPImages() throws IOException, ImagingException {
         return getTestImages(IMAGE_FILTER);

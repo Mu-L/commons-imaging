@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -19,7 +19,7 @@ package org.apache.commons.imaging.formats.tiff.write;
 import java.io.IOException;
 
 import org.apache.commons.imaging.ImagingException;
-import org.apache.commons.imaging.common.BinaryOutputStream;
+import org.apache.commons.imaging.common.AbstractBinaryOutputStream;
 
 abstract class AbstractTiffOutputItem {
 
@@ -52,7 +52,7 @@ abstract class AbstractTiffOutputItem {
         }
 
         @Override
-        public void writeItem(final BinaryOutputStream bos) throws IOException, ImagingException {
+        public void writeItem(final AbstractBinaryOutputStream bos) throws IOException, ImagingException {
             bos.write(bytes);
         }
     }
@@ -73,5 +73,5 @@ abstract class AbstractTiffOutputItem {
         this.offset = offset;
     }
 
-    public abstract void writeItem(BinaryOutputStream bos) throws IOException, ImagingException;
+    public abstract void writeItem(AbstractBinaryOutputStream bos) throws IOException, ImagingException;
 }

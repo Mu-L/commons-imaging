@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -46,7 +46,7 @@ import org.junit.jupiter.api.io.TempDir;
  * At this time, Commons Imaging does not fully implement the floating-point specification. Currently, this class only tests the use of uncompressed floating
  * point values in the Strips format. The Tiles format is not exercised.
  */
-public class TiffFloatingPointMultivariableTest extends TiffBaseTest {
+public class TiffFloatingPointMultivariableTest extends AbstractTiffTest {
 
     @TempDir
     Path tempDir;
@@ -224,7 +224,7 @@ public class TiffFloatingPointMultivariableTest extends TiffBaseTest {
             final TiffContents contents = tiffReader.readDirectories(byteSource, true, // indicates that application should read image data, if present
                     FormatCompliance.getDefault());
             final TiffDirectory directory = contents.directories.get(0);
-            final TiffRasterData raster = directory.getRasterData(new TiffImagingParameters());
+            final AbstractTiffRasterData raster = directory.getRasterData(new TiffImagingParameters());
             assertNotNull(raster, "Failed to get raster from " + name);
             assertEquals(2, raster.getSamplesPerPixel(), "Invalid samples per pixel in " + name);
             for (int iPlane = 0; iPlane < 2; iPlane++) {

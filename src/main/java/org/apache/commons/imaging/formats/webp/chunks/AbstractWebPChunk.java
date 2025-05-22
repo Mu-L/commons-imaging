@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -29,9 +29,17 @@ import org.apache.commons.imaging.internal.SafeOperations;
  * A WebP image is composed of several chunks. This is the base class for the chunks, used by the parser.
  *
  * @see <a href="https://developers.google.com/speed/webp/docs/riff_container">WebP Container Specification</a>
- * @since 1.0-alpha4
+ * @since 1.0.0-alpha4
  */
-public abstract class WebPChunk extends BinaryFileParser {
+public abstract class AbstractWebPChunk extends BinaryFileParser {
+
+    private static boolean checkArgs(final int size, final byte[] bytes) throws ImagingException {
+        if (size != bytes.length) {
+            throw new ImagingException("Chunk size must match bytes length");
+        }
+        return true;
+    }
+
     private final int type;
     private final int size;
     protected final byte[] bytes;
@@ -45,20 +53,17 @@ public abstract class WebPChunk extends BinaryFileParser {
      * @param bytes chunk data.
      * @throws ImagingException if the chunk data and the size provided do not match.
      */
-    WebPChunk(final int type, final int size, final byte[] bytes) throws ImagingException {
+    public AbstractWebPChunk(final int type, final int size, final byte[] bytes) throws ImagingException {
+        this(type, size, bytes, checkArgs(size, bytes));
+    }
+
+    private AbstractWebPChunk(final int type, final int size, final byte[] bytes, final boolean ignored) {
         super(ByteOrder.LITTLE_ENDIAN);
-
-        if (size != bytes.length) {
-            throw new ImagingException("Chunk size must match bytes length");
-        }
-
         this.type = type;
-        this.size = size;
+        this.size = bytes.length;
         this.bytes = bytes;
-
         // if chunk size is odd, a single padding byte is added
         final int padding = size % 2 != 0 ? 1 : 0;
-
         // Chunk FourCC (4 bytes) + Chunk Size (4 bytes) + Chunk Payload (n bytes) + Padding
         this.chunkSize = SafeOperations.add(4, 4, size, padding);
     }

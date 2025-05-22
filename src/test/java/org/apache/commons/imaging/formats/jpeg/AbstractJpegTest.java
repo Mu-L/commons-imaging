@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.apache.commons.imaging.formats.icns;
+package org.apache.commons.imaging.formats.jpeg;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,16 +27,17 @@ import org.apache.commons.imaging.ImageFormats;
 import org.apache.commons.imaging.Imaging;
 import org.apache.commons.imaging.ImagingException;
 
-public abstract class IcnsBaseTest extends AbstractImagingTest {
+public abstract class AbstractJpegTest extends AbstractImagingTest {
 
-    private static final ImageFilter IMAGE_FILTER = IcnsBaseTest::isIcns;
+    public static final ImageFilter imageFilter = AbstractJpegTest::isJpeg;
 
-    protected static List<File> getIcnsImages() throws IOException, ImagingException {
-        return getTestImages(IMAGE_FILTER);
+    protected static List<File> getJpegImages() throws IOException, ImagingException {
+        return getTestImages(imageFilter);
     }
 
-    private static boolean isIcns(final File file) throws IOException {
+    protected static boolean isJpeg(final File file) throws IOException {
         final ImageFormat format = Imaging.guessFormat(file);
-        return format == ImageFormats.ICNS;
+        return format == ImageFormats.JPEG;
     }
+
 }

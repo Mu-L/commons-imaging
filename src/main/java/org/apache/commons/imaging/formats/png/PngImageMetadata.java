@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -43,12 +43,27 @@ public class PngImageMetadata implements ImageMetadata {
         this.exif = exif;
     }
 
-    public ImageMetadata getTextualInformation() {
-        return textualInformation;
+    public void dump() {
+        Debug.debug(this.toString());
     }
 
     public TiffImageMetadata getExif() {
         return exif;
+    }
+
+    @Override
+    public List<? extends ImageMetadataItem> getItems() {
+        if (exif == null) {
+            return textualInformation.getItems();
+        }
+
+        final ArrayList<ImageMetadataItem> result = new ArrayList<>(textualInformation.getItems());
+        result.addAll(exif.getItems());
+        return result;
+    }
+
+    public ImageMetadata getTextualInformation() {
+        return textualInformation;
     }
 
     @Override
@@ -78,21 +93,5 @@ public class PngImageMetadata implements ImageMetadata {
         }
 
         return result.toString();
-    }
-
-    @Override
-    public List<? extends ImageMetadataItem> getItems() {
-        if (exif == null) {
-            return textualInformation.getItems();
-        }
-
-        final ArrayList<ImageMetadataItem> result = new ArrayList<>();
-        result.addAll(textualInformation.getItems());
-        result.addAll(exif.getItems());
-        return result;
-    }
-
-    public void dump() {
-        Debug.debug(this.toString());
     }
 }

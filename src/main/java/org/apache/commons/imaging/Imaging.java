@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -118,7 +118,7 @@ public final class Imaging {
     }
 
     /**
-     * Write the ImageInfo and format-specific information for the image content of the specified byte array to a string.
+     * Writes the ImageInfo and format-specific information for the image content of the specified byte array to a string.
      *
      * @param bytes A valid array of bytes.
      * @return A valid string.
@@ -135,7 +135,7 @@ public final class Imaging {
     }
 
     /**
-     * Write the ImageInfo and format-specific information for the image content of the specified file to a string.
+     * Writes the ImageInfo and format-specific information for the image content of the specified file to a string.
      *
      * @param file A valid file reference.
      * @return A valid string.

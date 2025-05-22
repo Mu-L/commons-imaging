@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -39,7 +39,7 @@ import org.apache.commons.imaging.common.XmpEmbeddable;
 import org.apache.commons.imaging.common.XmpImagingParameters;
 import org.apache.commons.imaging.formats.tiff.TiffImageMetadata;
 import org.apache.commons.imaging.formats.tiff.TiffImageParser;
-import org.apache.commons.imaging.formats.webp.chunks.WebPChunk;
+import org.apache.commons.imaging.formats.webp.chunks.AbstractWebPChunk;
 import org.apache.commons.imaging.formats.webp.chunks.WebPChunkVp8;
 import org.apache.commons.imaging.formats.webp.chunks.WebPChunkVp8l;
 import org.apache.commons.imaging.formats.webp.chunks.WebPChunkVp8x;
@@ -49,7 +49,7 @@ import org.apache.commons.imaging.internal.SafeOperations;
 /**
  * WebP image parser.
  *
- * @since 1.0-alpha4
+ * @since 1.0.0-alpha4
  */
 public class WebPImageParser extends AbstractImageParser<WebPImagingParameters> implements XmpEmbeddable<WebPImagingParameters> {
 
@@ -80,7 +80,7 @@ public class WebPImageParser extends AbstractImageParser<WebPImagingParameters> 
             return SafeOperations.add(sizeCount, 8); // File Header
         }
 
-        WebPChunk readChunk() throws ImagingException, IOException {
+        AbstractWebPChunk readChunk() throws ImagingException, IOException {
             while (sizeCount < fileSize) {
                 final int type = read4Bytes("Chunk Type", is, "Not a valid WebP file", ByteOrder.LITTLE_ENDIAN);
                 final int payloadSize = read4Bytes("Chunk Size", is, "Not a valid WebP file", ByteOrder.LITTLE_ENDIAN);
@@ -113,7 +113,7 @@ public class WebPImageParser extends AbstractImageParser<WebPImagingParameters> 
                 }
 
                 final byte[] bytes = readBytes("Chunk Payload", is, payloadSize);
-                final WebPChunk chunk = WebPChunkType.makeChunk(type, payloadSize, bytes);
+                final AbstractWebPChunk chunk = WebPChunkType.makeChunk(type, payloadSize, bytes);
                 if (padding) {
                     skipBytes(is, 1);
                 }
@@ -134,7 +134,7 @@ public class WebPImageParser extends AbstractImageParser<WebPImagingParameters> 
     private static final String[] ACCEPTED_EXTENSIONS = ImageFormats.WEBP.getExtensions();
 
     /**
-     * Read the file header of WebP file.
+     * Reads the file header of WebP file.
      *
      * @return file size in file header (including the WebP signature, excluding the TIFF signature and the file size field).
      */
@@ -168,7 +168,7 @@ public class WebPImageParser extends AbstractImageParser<WebPImagingParameters> 
         pw.println("webp.dumpImageFile");
         try (ChunksReader reader = new ChunksReader(byteSource)) {
             int offset = reader.getOffset();
-            WebPChunk chunk = reader.readChunk();
+            AbstractWebPChunk chunk = reader.readChunk();
             if (chunk == null) {
                 throw new ImagingException("No WebP chunks found");
             }
@@ -215,7 +215,7 @@ public class WebPImageParser extends AbstractImageParser<WebPImagingParameters> 
     @Override
     public byte[] getIccProfileBytes(final ByteSource byteSource, final WebPImagingParameters params) throws ImagingException, IOException {
         try (ChunksReader reader = new ChunksReader(byteSource, WebPChunkType.ICCP)) {
-            final WebPChunk chunk = reader.readChunk();
+            final AbstractWebPChunk chunk = reader.readChunk();
             return chunk == null ? null : chunk.getBytes();
         }
     }
@@ -230,7 +230,7 @@ public class WebPImageParser extends AbstractImageParser<WebPImagingParameters> 
             boolean hasAlpha = false;
             ImageInfo.ColorType colorType = ImageInfo.ColorType.RGB;
 
-            WebPChunk chunk = reader.readChunk();
+            AbstractWebPChunk chunk = reader.readChunk();
             if (chunk instanceof WebPChunkVp8) {
                 formatDetails = "WebP/Lossy";
                 numberOfImages = 1;
@@ -295,7 +295,7 @@ public class WebPImageParser extends AbstractImageParser<WebPImagingParameters> 
     @Override
     public Dimension getImageSize(final ByteSource byteSource, final WebPImagingParameters params) throws ImagingException, IOException {
         try (ChunksReader reader = new ChunksReader(byteSource)) {
-            final WebPChunk chunk = reader.readChunk();
+            final AbstractWebPChunk chunk = reader.readChunk();
             if (chunk instanceof WebPChunkVp8) {
                 final WebPChunkVp8 vp8 = (WebPChunkVp8) chunk;
                 return new Dimension(vp8.getWidth(), vp8.getHeight());
@@ -315,7 +315,7 @@ public class WebPImageParser extends AbstractImageParser<WebPImagingParameters> 
     @Override
     public WebPImageMetadata getMetadata(final ByteSource byteSource, final WebPImagingParameters params) throws ImagingException, IOException {
         try (ChunksReader reader = new ChunksReader(byteSource, WebPChunkType.EXIF)) {
-            final WebPChunk chunk = reader.readChunk();
+            final AbstractWebPChunk chunk = reader.readChunk();
             return chunk == null ? null : new WebPImageMetadata((TiffImageMetadata) new TiffImageParser().getMetadata(chunk.getBytes()));
         }
     }

@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -136,14 +136,14 @@ public enum ChunkType {
     /**
      * Image offset
      *
-     * @since 1.0-alpha6
+     * @since 1.0.0-alpha6
      */
     oFFs(Extension.PNGEXT),
 
     /**
      * Calibration of pixel values
      *
-     * @since 1.0-alpha6
+     * @since 1.0.0-alpha6
      */
     pCAL(Extension.PNGEXT),
 
@@ -155,28 +155,28 @@ public enum ChunkType {
     /**
      * GIF Graphic Control Extension
      *
-     * @since 1.0-alpha6
+     * @since 1.0.0-alpha6
      */
     gIFg(Extension.PNGEXT),
 
     /**
      * GIF Application Extension
      *
-     * @since 1.0-alpha6
+     * @since 1.0.0-alpha6
      */
     gIFx(Extension.PNGEXT),
 
     /**
      * Indicator of Stereo Image
      *
-     * @since 1.0-alpha6
+     * @since 1.0.0-alpha6
      */
     sTER(Extension.PNGEXT),
 
     /**
      * Exchangeable Image File (Exif) Profile
      *
-     * @since 1.0-alpha6
+     * @since 1.0.0-alpha6
      */
     eXIf(Extension.PNGEXT),
 
@@ -187,7 +187,7 @@ public enum ChunkType {
         PngChunk make(int length, int chunkType, int crc, byte[] bytes) throws IOException;
     }
 
-    private static final ChunkType[] types = ChunkType.values();
+    private static final ChunkType[] types = values();
 
     static ChunkType findType(final int chunkType) {
         for (final ChunkType type : types) {
@@ -214,12 +214,12 @@ public enum ChunkType {
         this(null, null);
     }
 
-    ChunkType(final Extension extension) {
-        this(extension, null);
-    }
-
     ChunkType(final ChunkConstructor constructor) {
         this(null, constructor);
+    }
+
+    ChunkType(final Extension extension) {
+        this(extension, null);
     }
 
     ChunkType(final Extension extension, final ChunkConstructor constructor) {

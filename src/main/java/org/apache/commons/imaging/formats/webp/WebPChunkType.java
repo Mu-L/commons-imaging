@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -20,7 +20,7 @@ import java.io.IOException;
 
 import org.apache.commons.imaging.ImagingException;
 import org.apache.commons.imaging.common.BinaryFunctions;
-import org.apache.commons.imaging.formats.webp.chunks.WebPChunk;
+import org.apache.commons.imaging.formats.webp.chunks.AbstractWebPChunk;
 import org.apache.commons.imaging.formats.webp.chunks.WebPChunkAlph;
 import org.apache.commons.imaging.formats.webp.chunks.WebPChunkAnim;
 import org.apache.commons.imaging.formats.webp.chunks.WebPChunkAnmf;
@@ -35,7 +35,7 @@ import org.apache.commons.imaging.formats.webp.chunks.WebPChunkXyzw;
 /**
  * WebP chunk type.
  *
- * @since 1.0-alpha4
+ * @since 1.0.0-alpha4
  */
 public enum WebPChunkType {
 
@@ -85,7 +85,7 @@ public enum WebPChunkType {
     XMP(WebPChunkXml::new);
 
     private interface ChunkConstructor {
-        WebPChunk make(int type, int size, byte[] bytes) throws IOException, ImagingException;
+        AbstractWebPChunk make(int type, int size, byte[] bytes) throws IOException, ImagingException;
     }
 
     private static final WebPChunkType[] types = values();
@@ -99,7 +99,7 @@ public enum WebPChunkType {
         return null;
     }
 
-    static WebPChunk makeChunk(final int chunkType, final int size, final byte[] bytes) throws IOException, ImagingException {
+    static AbstractWebPChunk makeChunk(final int chunkType, final int size, final byte[] bytes) throws IOException, ImagingException {
         final WebPChunkType type = findType(chunkType);
         return type != null ? type.constructor.make(chunkType, size, bytes) : new WebPChunkXyzw(chunkType, size, bytes);
     }
