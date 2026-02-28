@@ -84,6 +84,8 @@ public class GifImageParser extends AbstractImageParser<GifImagingParameters> im
             0x50, // P
     };
 
+    private static final boolean LOCAL_COLOR_TABLE_FLAG = true;
+
     // Made internal for testability.
     static DisposalMethod createDisposalMethodFromIntValue(final int value) throws ImagingException {
         switch (value) {
@@ -959,7 +961,6 @@ public class GifImageParser extends AbstractImageParser<GifImagingParameters> im
                 bos.write2Bytes(height); // Image Height
 
                 {
-                    final boolean localColorTableFlag = true;
                     // boolean LocalColorTableFlag = false;
                     final boolean interlaceFlag = false;
                     final boolean sortFlag = false;
@@ -968,7 +969,7 @@ public class GifImageParser extends AbstractImageParser<GifImagingParameters> im
                     // int SizeOfLocalColorTable = 0;
 
                     final int packedFields;
-                    if (localColorTableFlag) {
+                    if (LOCAL_COLOR_TABLE_FLAG) {
                         packedFields = LOCAL_COLOR_TABLE_FLAG_MASK | (interlaceFlag ? INTERLACE_FLAG_MASK : 0) | (sortFlag ? SORT_FLAG_MASK : 0)
                                 | 7 & sizeOfLocalColorTable;
                     } else {
